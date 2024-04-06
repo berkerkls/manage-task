@@ -2,7 +2,7 @@
   <div class="navbar">
     <div class="navbar-start flex justify-center items-center">
       <NuxtLink
-        to="/login"
+        to="/"
         class="btn btn-ghost text-primary hover:bg-transparent text-2xl"
         >gBetter.</NuxtLink
       >
@@ -24,7 +24,7 @@ let route = useRoute();
 const navigationLinks = [
   {
     href: "/login",
-    label: "Login",
+    label: "Log in",
   },
   {
     href: "/signup",

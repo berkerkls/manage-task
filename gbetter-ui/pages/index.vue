@@ -1,8 +1,54 @@
 <template>
-  <div class="flex justify-center items-center">
-    <div>aaaaa</div>
-    <div>bbbbb</div>
+  <div class="hero flex justify-center items-center h-full">
+    <div class="hero-content flex-col-reverse lg:flex-row-reverse">
+      <div class="flex-1 card shrink-0 shadow-2xl bg-base-100">
+        <form class="card-body">
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">Email</span>
+            </label>
+            <input
+              type="email"
+              placeholder="email"
+              class="input input-bordered"
+              required
+            />
+          </div>
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">Password</span>
+            </label>
+            <input
+              type="password"
+              placeholder="password"
+              class="input input-bordered"
+              required
+            />
+            <label class="label">
+              <a href="#" class="label-text-alt link link-hover"
+                >Forgot password?</a
+              >
+            </label>
+          </div>
+          <div class="form-control mt-6">
+            <button class="btn btn-primary">Login</button>
+          </div>
+        </form>
+      </div>
+      <div class="flex-1 text-center lg:text-left">
+        <h1 class="text-5xl font-bold">Login now!</h1>
+        <p class="py-6">
+          Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
+          excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a
+          id nisi.
+        </p>
+      </div>
+    </div>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+definePageMeta({
+  layout: "login",
+});
+</script>
