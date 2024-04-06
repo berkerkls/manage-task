@@ -4,9 +4,11 @@
   "description": "this is backend for gbetter",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "NODE_ENV=production node server",
+    "dev":"nodemon server"
   },
-  "author": "",
+  "author": "Berker Kelesoglu",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.4.5",
