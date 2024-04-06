@@ -3,8 +3,8 @@
     <div class="hero-content flex-col-reverse lg:flex-row-reverse">
       <div class="card flex-1 shrink-0 shadow-2xl bg-base-100">
         <div class="card shrink-0 shadow-1xl bg-base-100">
-          <form @submit.prevent="deneme" class="card-body">
-            <div class="form-control" v-for="(item, index) in loginFormInputs">
+          <form @submit.prevent="signUp" class="card-body">
+            <div class="form-control" v-for="(item, index) in signupFormInputs">
               <SharedTextInput
                 :key="index"
                 v-model="item.value"
@@ -19,7 +19,7 @@
             </div>
             <div class="form-control mt-6">
               <button type="submit" class="btn btn-primary text-white">
-                Login
+                Sign up
               </button>
             </div>
           </form>
@@ -41,15 +41,26 @@
 
 <script setup>
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
-import { faKey } from "@fortawesome/free-solid-svg-icons";
+import { faKey, faUser } from "@fortawesome/free-solid-svg-icons";
 
 definePageMeta({
-  layout: "login",
+  layout: "landing",
 });
 
-const loginCommand = ref({ email: "", password: "" });
+const signupCommand = ref({ fullName: "", email: "", password: "" });
 
-const loginFormInputs = [
+const signupFormInputs = [
+  {
+    icon: faUser,
+    key: "fullName",
+    value: "",
+    placeholder: "* Name",
+    labelName: "Name",
+    type: "text",
+    isRequired: true,
+    isValid: false,
+    class: "grow",
+  },
   {
     icon: faEnvelope,
     key: "email",
@@ -74,13 +85,13 @@ const loginFormInputs = [
   },
 ];
 
-const deneme = () => {
-  loginFormInputs.map((item) => {
-    if (Object.keys(loginCommand.value).includes(item.key)) {
+const signUp = () => {
+  signupFormInputs.map((item) => {
+    if (Object.keys(signupCommand.value).includes(item.key)) {
       console.log(item.value, "sss");
-      loginCommand.value[item.key] = item.value;
+      signupCommand.value[item.key] = item.value;
     }
   });
-  console.log(loginCommand.value, "command");
+  console.log(signupCommand.value, "command");
 };
 </script>
