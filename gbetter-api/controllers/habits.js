@@ -67,14 +67,35 @@ exports.createHabit = async (req,res,next) => {
 //@desc Update Habit
 //@route PUT /api/v1/habits/:id
 //@access private
-exports.updateHabit = (req,res,next) => {
-    res.status(200).json({success:true, msg:`Update habits by id ${req.params.id}`})
+exports.updateHabit = async (req,res,next) => {
+    try {
+        const habit = await Habits.findByIdAndUpdate(req.params.id,req.body,{
+            new: true,
+            runValidator: true
+        })
+    
+        if(!habit){
+            res.status(400).json({success:false})
+        }
+        res.status(200).json({success:true, msg:`Update habits by id ${req.params.id}`, data: habit})
+    } catch (error) {
+        res.status(400).json({success:false})
+    }
 }
 
 //@desc Delete Habit
 //@route DELETE /api/v1/habits/:id
 //@access private
-exports.deleteHabit = (req,res,next) => {
-    res.status(200).json({success:true, msg:`Delete habits by id ${req.params.id}`})
+exports.deleteHabit = async (req,res,next) => {
+    try {
+        const habit = await Habits.findByIdAndDelete(req.params.id)
+    
+        if(!habit){
+            res.status(400).json({success:false})
+        }
+        res.status(200).json({success:true, msg:"Habit deleted"})
+    } catch (error) {
+        res.status(400).json({success:false})
+    }
 }
 
