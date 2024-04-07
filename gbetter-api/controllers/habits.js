@@ -1,35 +1,67 @@
+const Habits = require('../models/Habits')
 
 //@desc Get All Habits
 //@route GET /api/v1/habits 
 //@access private
-exports.getHabits = (req,res,next) => {
-    res.status(200).json({success:true, msg:'Show all habits'})
+exports.getHabits = async (req,res,next) => {
+    try {
+        const habits = await Habits.find()
+        res.status(200).json({success:true, msg:'Show all habits',data:habits})
+    } catch (error) {
+        console.log(error)
+        res.status(400).json({success:false})
+    }    
 }
 
 //@desc Get Habit
 //@route GET /api/v1/habits/:id
 //@access private
-exports.getHabit = (req,res,next) => {
-    res.status(200).json({success:true, msg:`Show habits by id ${req.params.id}`})
+exports.getHabit = async (req,res,next) => {
+    try {
+        const habit = await Habits.findById(req.params.id)
+        if(!habit){
+            res.status(400).json({success:false})
+        }
+        res.status(200).json({success:true, msg:'Single habit by id',data:habit})
+    } catch (error) {
+        console.log(error)
+        res.status(400).json({success:false})
+    }    
 }
 //@desc Get All Good Habits
 //@route GET /api/v1/habits/goodHabits 
 //@access private
-exports.getGoodHabits = (req,res,next) => {
-    res.status(200).json({success:true, msg:'Show goals'})
+exports.getGoodHabits = async (req,res,next) => {
+    try {
+        const habits = await Habits.find()
+        const goodHabits = habits.filter(item => item.habitType[0] == 0)
+        res.status(200).json({success:true, msg:'Show all habits',data:goodHabits})
+    } catch (error) {
+        console.log(error)
+        res.status(400).json({success:false})
+    }    
 }
 //@desc Get All Habits
 //@route GET /api/v1/habits/badHabits 
 //@access private
-exports.getBadHabits = (req,res,next) => {
+exports.getBadHabits = async (req,res,next) => {
+    try {
+        const habits = await Habits.find()
+        const goodHabits = habits.filter(item => item.habitType[0] == 1)
+        res.status(200).json({success:true, msg:'Show all habits',data:goodHabits})
+    } catch (error) {
+        console.log(error)
+        res.status(400).json({success:false})
+    }    
     res.status(200).json({success:true, msg:'Show bad habits'})
 }
 
 //@desc Create New Habit
 //@route POST /api/v1/habits 
 //@access private
-exports.createHabit = (req,res,next) => {
-    res.status(200).json({success:true, msg:'Create habit'})
+exports.createHabit = async (req,res,next) => {
+    const habit = await Habits.create(req.body)
+    res.status(200).json({success:true, data:habit})
 }
 
 //@desc Update Habit
