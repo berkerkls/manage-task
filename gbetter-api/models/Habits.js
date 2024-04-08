@@ -14,8 +14,8 @@ const HabitsSchema = new mongoose.Schema({
         maxlength:[500, 'Description cannot be more than 500 characters']
     },
     habitType: {
-        type: [Number],
-        required:true,
+        type: Number,
+        required:[true, 'Please add a habit type'],
         enum:[
             0, // good habit
             1 , // bad habit
@@ -23,8 +23,8 @@ const HabitsSchema = new mongoose.Schema({
         ]
     },
     timePeriod: {
-        type:[Number],
-        required: true,
+        type:Number,
+        required: [true, 'Please add a time period'],
         enum:[
             0,  //daily
             1,  // weekly
