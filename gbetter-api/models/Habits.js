@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const slugify = require('slugify')
 
 
 const HabitsSchema = new mongoose.Schema({
@@ -39,6 +40,11 @@ const HabitsSchema = new mongoose.Schema({
         type: Boolean,
         default: true
     }
+})
+
+HabitsSchema.pre('save', function(next){
+    this.slug = slugify(this.title, {lower: true})
+    next();
 })
 
 
