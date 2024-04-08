@@ -1,4 +1,5 @@
 const Habits = require('../models/Habits')
+const ErrorResponse = require('../utils/errResponse')
 
 //@desc Get All Habits
 //@route GET /api/v1/habits 
@@ -9,7 +10,7 @@ exports.getHabits = async (req,res,next) => {
         res.status(200).json({success:true, msg:'Show all habits',data:habits})
     } catch (error) {
         console.log(error)
-        res.status(400).json({success:false})
+        next(error)
     }    
 }
 
@@ -20,12 +21,11 @@ exports.getHabit = async (req,res,next) => {
     try {
         const habit = await Habits.findById(req.params.id)
         if(!habit){
-            res.status(400).json({success:false})
+            next(new ErrorResponse(`Habit not found by id ${req.params.id}`, 404))
         }
         res.status(200).json({success:true, msg:'Single habit by id',data:habit})
     } catch (error) {
-        console.log(error)
-        res.status(400).json({success:false})
+        next(error)
     }    
 }
 //@desc Get All Good Habits
@@ -38,7 +38,7 @@ exports.getGoodHabits = async (req,res,next) => {
         res.status(200).json({success:true, msg:'Show all habits',data:goodHabits})
     } catch (error) {
         console.log(error)
-        res.status(400).json({success:false})
+        next(error)
     }    
 }
 //@desc Get All Habits
@@ -51,7 +51,7 @@ exports.getBadHabits = async (req,res,next) => {
         res.status(200).json({success:true, msg:'Show all habits',data:goodHabits})
     } catch (error) {
         console.log(error)
-        res.status(400).json({success:false})
+        next(error)
     }    
     res.status(200).json({success:true, msg:'Show bad habits'})
 }
@@ -60,8 +60,12 @@ exports.getBadHabits = async (req,res,next) => {
 //@route POST /api/v1/habits 
 //@access private
 exports.createHabit = async (req,res,next) => {
-    const habit = await Habits.create(req.body)
-    res.status(200).json({success:true, data:habit})
+    try {
+        const habit = await Habits.create(req.body)
+        res.status(200).json({success:true, data:habit})
+    } catch (error) {
+        next(error)
+    }
 }
 
 //@desc Update Habit
@@ -75,11 +79,11 @@ exports.updateHabit = async (req,res,next) => {
         })
     
         if(!habit){
-            res.status(400).json({success:false})
+            next(new ErrorResponse(`Habit by id ${req.params.id} couldn't be found and updated`,404))
         }
         res.status(200).json({success:true, msg:`Update habits by id ${req.params.id}`, data: habit})
     } catch (error) {
-        res.status(400).json({success:false})
+        next(error)
     }
 }
 
@@ -91,11 +95,11 @@ exports.deleteHabit = async (req,res,next) => {
         const habit = await Habits.findByIdAndDelete(req.params.id)
     
         if(!habit){
-            res.status(400).json({success:false})
+            next(new ErrorResponse(`Habit by id ${req.params.id} couldn't be found and deleted`,404))
         }
         res.status(200).json({success:true, msg:"Habit deleted"})
     } catch (error) {
-        res.status(400).json({success:false})
+        next(error)
     }
 }
 
