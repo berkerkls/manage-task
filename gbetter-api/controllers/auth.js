@@ -19,3 +19,30 @@ exports.registerUser = asyncHandler(async (req,res,next) => {
 
     res.status(200).json({success:true, msg:'User registered',token: token})
 })
+
+
+
+exports.loginUser = asyncHandler(async (req,res,next) => {
+    const { email, password} = req.body
+    console.log('????',email,password)
+    if(!email || !password){
+     return next(new ErrorResponse('Please enter an email and password', 400))
+    }
+
+    const user = await User.findOne({email: email}).select('+password')
+
+    if(!user){
+        return next(new ErrorResponse('Email or password is wrong. Check and try login again.',401))
+    }
+
+    //Check if password ok
+    const isMatched = await user.matchPassword(password)
+
+    if(!isMatched){
+        return next(new ErrorResponse('Email or password is wrong. Check and try login again.',401))
+    }
+    const token = user.getSignedJwtToken()
+
+    res.status(200).json({success:true, msg:'Login is successfull ',token: token})
+
+})
