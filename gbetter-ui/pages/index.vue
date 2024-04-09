@@ -48,6 +48,7 @@ definePageMeta({
 });
 
 const signupCommand = ref({ fullName: "", email: "", password: "" });
+const allHabits = ref();
 
 const signupFormInputs = [
   {
@@ -94,4 +95,11 @@ const signUp = () => {
   });
   console.log(signupCommand.value, "command");
 };
+// const getHabit = () => {
+//   let { data } = useFetch("http://localhost:5000/api/v1/habits");
+//   let { items } = Object(data.value);
+//   return items;
+// };
+
+// let habits = getHabit();
 </script>

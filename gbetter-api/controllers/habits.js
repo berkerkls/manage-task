@@ -7,7 +7,7 @@ const asyncHandler = require('../middleware/async')
 //@access private
 exports.getHabits = asyncHandler(async (req,res,next) => {
         const habits = await Habits.find()
-        res.status(200).json({success:true, msg:'Show all habits',data:habits})
+        res.status(200).json({success:true, msg:'Show all habits',items:habits})
     
 }) 
 
@@ -19,7 +19,7 @@ exports.getHabit = asyncHandler(async (req,res,next) => {
         if(!habit){
             next(new ErrorResponse(`Habit not found by id ${req.params.id}`, 404))
         }
-        res.status(200).json({success:true, msg:'Single habit by id',data:habit})
+        res.status(200).json({success:true, msg:'Single habit by id',item:habit})
 }) 
 //@desc Get All Good Habits
 //@route GET /api/v1/habits/goodHabits 
@@ -27,7 +27,7 @@ exports.getHabit = asyncHandler(async (req,res,next) => {
 exports.getGoodHabits = asyncHandler(async (req,res,next) => {
         const habits = await Habits.find()
         const goodHabits = habits.filter(item => item.habitType == 0)
-        res.status(200).json({success:true, msg:'Show all habits',data:goodHabits})
+        res.status(200).json({success:true, msg:'Show all habits',items:goodHabits})
 }) 
 //@desc Get All Habits
 //@route GET /api/v1/habits/badHabits 
@@ -35,7 +35,7 @@ exports.getGoodHabits = asyncHandler(async (req,res,next) => {
 exports.getBadHabits = asyncHandler(async (req,res,next) => {
         const habits = await Habits.find()
         const goodHabits = habits.filter(item => item.habitType == 1)
-        res.status(200).json({success:true, msg:'Show all bad habits',data:goodHabits})
+        res.status(200).json({success:true, msg:'Show all bad habits',items:goodHabits})
 }) 
 
 //@desc Create New Habit
@@ -43,7 +43,7 @@ exports.getBadHabits = asyncHandler(async (req,res,next) => {
 //@access private
 exports.createHabit = asyncHandler(async (req,res,next) => {
         const habit = await Habits.create(req.body)
-        res.status(200).json({success:true, data:habit})
+        res.status(200).json({success:true, item:habit})
    
 }) 
 
@@ -58,7 +58,7 @@ exports.updateHabit = asyncHandler(async (req,res,next) => {
         if(!habit){
             next(new ErrorResponse(`Habit by id ${req.params.id} couldn't be found and updated`,404))
         }
-        res.status(200).json({success:true, msg:`Update habits by id ${req.params.id}`, data: habit})
+        res.status(200).json({success:true, msg:`Update habits by id ${req.params.id}`, item: habit})
 }) 
 
 //@desc Delete Habit
