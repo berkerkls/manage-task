@@ -12,6 +12,7 @@ export class HttpClient {
     });
   }
   Post(url: string, data: any) {
+    console.log("data", data);
     return $fetch(`${API_BASE}${url}`, {
       method: "POST",
       body: data,

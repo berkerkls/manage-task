@@ -1,16 +1,18 @@
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import { faKey, faUser } from "@fortawesome/free-solid-svg-icons";
+import { errorMessages } from "vue/compiler-sfc";
 
 export const signupFormInputs = [
     {
       icon: faUser,
       key: "fullName",
       value: "",
-      placeholder: "* Name",
+      placeholder: "Name",
       labelName: "Name",
       type: "text",
       isRequired: true,
-      isValid: false,
+      isValid: true,
+      errorMessage:'',
     },
     {
       icon: faEnvelope,
@@ -20,7 +22,8 @@ export const signupFormInputs = [
       labelName: "Email",
       type: "text",
       isRequired: true,
-      isValid: false,
+      isValid: true,
+      errorMessage:'',
     },
     {
       icon: faKey,
@@ -30,7 +33,8 @@ export const signupFormInputs = [
       labelName: "Password",
       type: "password",
       isRequired: true,
-      isValid: false,
+      isValid: true,
+      errorMessage:'',
     },
   ];
 
@@ -44,7 +48,9 @@ export const signupFormInputs = [
       labelName: "Email",
       type: "text",
       isRequired: true,
-      isValid: false,
+      isValid: true,
+      checkValid:(value) => this.isValid = value, 
+      errorMessage:'',
     },
     {
       icon: faKey,
@@ -54,6 +60,8 @@ export const signupFormInputs = [
       labelName: "Password",
       type: "password",
       isRequired: true,
-      isValid: false,
+      isValid: true,
+      errorMessage: ''
     },
   ];
+

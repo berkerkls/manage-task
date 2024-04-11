@@ -28,7 +28,7 @@
       <div class="flex-1 text-center lg:text-left">
         <h1 class="text-5xl font-bold">
           Be organized and plan your
-          <span class="text-primary">tasks</span> today!
+          <span class="text-primary">tasks</span>.
         </h1>
         <p class="py-6">
           Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda

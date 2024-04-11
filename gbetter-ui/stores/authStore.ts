@@ -7,13 +7,6 @@ export const useAuthStore = defineStore({
       token: "",
     };
   },
-  getters: {
-    getToken(state) {
-      return state.token
-        ? state.token
-        : process.client && JSON.parse(localStorage.getItem("token") as string);
-    },
-  },
   actions: {
     setToken(token: string) {
       this.token = token;
@@ -22,6 +15,11 @@ export const useAuthStore = defineStore({
     logout() {
       this.token = "";
       localStorage.removeItem("token");
+    },
+    getToken() {
+      return this.token
+        ? this.token
+        : process.client && JSON.parse(localStorage.getItem("token") as string);
     },
   },
 });

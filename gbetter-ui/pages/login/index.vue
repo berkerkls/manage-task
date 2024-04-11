@@ -24,6 +24,9 @@
               :label-name="item.labelName"
               :placeholder="item.placeholder"
               :type="item.type"
+              @isInputValid="
+                (value) => (loginFormInputs[index].isValid = value)
+              "
             />
           </div>
           <label class="label">
@@ -45,19 +48,33 @@
 <script setup>
 import { loginFormInputs } from "~/data/contants";
 import LinkItem from "~/components/shared/LinkItem.vue";
+import { AuthService } from "~/services/auth-service";
+import { useAuthStore } from "../../stores/authStore";
 definePageMeta({
   layout: "landing",
 });
 
 const loginCommand = ref({ email: "", password: "" });
+const authService = new AuthService();
+const authStore = new useAuthStore();
+const router = useRouter();
 
 const login = () => {
   loginFormInputs.map((item) => {
     if (Object.keys(loginCommand.value).includes(item.key)) {
-      console.log(item.value, "sss");
       loginCommand.value[item.key] = item.value;
     }
   });
-  console.log(loginCommand.value, "command");
+
+  if (loginFormInputs.every((item) => item.isValid && item.value)) {
+    authService.Login(loginCommand.value).then((res) => {
+      if (res.success) {
+        authStore.setToken(res.token);
+        router.push({ name: "dashboard" });
+      }
+    });
+  } else {
+    console.log("not valid");
+  }
 };
 </script>
