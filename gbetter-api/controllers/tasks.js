@@ -6,7 +6,7 @@ const asyncHandler = require('../middleware/async')
 //@route GET /api/v1/tasks 
 //@access private
 exports.getTasks = asyncHandler(async (req,res,next) => {
-        const tasks = await Task.find()
+        const tasks = await Task.find({user: req.user.id})
         res.status(200).json({success:true, msg:'Show all tasks',items:tasks})
     
 }) 
@@ -15,7 +15,7 @@ exports.getTasks = asyncHandler(async (req,res,next) => {
 //@route GET /api/v1/tasks/:id
 //@access private
 exports.getTask = asyncHandler(async (req,res,next) => {
-        const task = await Task.findById(req.params.id)
+        const task = await Task.findOne({user: req.user.id, _id: req.params.id})
         if(!task){
             next(new ErrorResponse(`Task not found by id ${req.params.id}`, 404))
         }
@@ -25,7 +25,7 @@ exports.getTask = asyncHandler(async (req,res,next) => {
 //@route GET /api/v1/tasks/singleTasks
 //@access private
 exports.getSingleTasks = asyncHandler(async (req,res,next) => {
-        const tasks = await Task.find()
+        const tasks = await Task.find({user: req.user.id})
         const singleTasks = tasks.filter(item => item.taskType == 0)
         res.status(200).json({success:true, msg:'Show all single tasks',items:singleTasks})
 }) 
@@ -33,7 +33,7 @@ exports.getSingleTasks = asyncHandler(async (req,res,next) => {
 //@route GET /api/v1/habits/roadmaps 
 //@access private
 exports.getRoadmaps = asyncHandler(async (req,res,next) => {
-        const tasks = await Task.find()
+        const tasks = await Task.find({user: req.user.id})
         const roadmaps = tasks.filter(item => item.taskType == 1)
         res.status(200).json({success:true, msg:'Show all roadmaps',items:roadmaps})
 }) 
@@ -42,6 +42,7 @@ exports.getRoadmaps = asyncHandler(async (req,res,next) => {
 //@route POST /api/v1/tasks 
 //@access private
 exports.createTask = asyncHandler(async (req,res,next) => {
+        req.body.user = req.user.id
         const task = await Task.create(req.body)
         res.status(200).json({success:true, item:task})
    

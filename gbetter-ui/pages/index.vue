@@ -27,7 +27,8 @@
       </div>
       <div class="flex-1 text-center lg:text-left">
         <h1 class="text-5xl font-bold">
-          Start to achive your <span class="text-primary">goals</span> today!
+          Be organized and plan your
+          <span class="text-primary">tasks</span> today!
         </h1>
         <p class="py-6">
           Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
@@ -40,51 +41,13 @@
 </template>
 
 <script setup>
-import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
-import { faKey, faUser } from "@fortawesome/free-solid-svg-icons";
+import { signupFormInputs } from "~/data/contants";
 
 definePageMeta({
   layout: "landing",
 });
 
 const signupCommand = ref({ fullName: "", email: "", password: "" });
-const allHabits = ref();
-
-const signupFormInputs = [
-  {
-    icon: faUser,
-    key: "fullName",
-    value: "",
-    placeholder: "* Name",
-    labelName: "Name",
-    type: "text",
-    isRequired: true,
-    isValid: false,
-    class: "grow",
-  },
-  {
-    icon: faEnvelope,
-    key: "email",
-    value: "",
-    placeholder: "Email",
-    labelName: "Email",
-    type: "text",
-    isRequired: true,
-    isValid: false,
-    class: "grow",
-  },
-  {
-    icon: faKey,
-    key: "password",
-    value: "",
-    placeholder: "Password",
-    labelName: "Password",
-    type: "password",
-    isRequired: true,
-    isValid: false,
-    class: "grow",
-  },
-];
 
 const signUp = () => {
   signupFormInputs.map((item) => {
@@ -95,11 +58,4 @@ const signUp = () => {
   });
   console.log(signupCommand.value, "command");
 };
-// const getHabit = () => {
-//   let { data } = useFetch("http://localhost:5000/api/v1/habits");
-//   let { items } = Object(data.value);
-//   return items;
-// };
-
-// let habits = getHabit();
 </script>

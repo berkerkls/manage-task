@@ -43,39 +43,13 @@
 </template>
 
 <script setup>
-import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
-import { faKey } from "@fortawesome/free-solid-svg-icons";
+import { loginFormInputs } from "~/data/contants";
 import LinkItem from "~/components/shared/LinkItem.vue";
 definePageMeta({
   layout: "landing",
 });
 
 const loginCommand = ref({ email: "", password: "" });
-
-const loginFormInputs = [
-  {
-    icon: faEnvelope,
-    key: "email",
-    value: "",
-    placeholder: "Email",
-    labelName: "Email",
-    type: "text",
-    isRequired: true,
-    isValid: false,
-    class: "grow",
-  },
-  {
-    icon: faKey,
-    key: "password",
-    value: "",
-    placeholder: "Password",
-    labelName: "Password",
-    type: "password",
-    isRequired: true,
-    isValid: false,
-    class: "grow",
-  },
-];
 
 const login = () => {
   loginFormInputs.map((item) => {
