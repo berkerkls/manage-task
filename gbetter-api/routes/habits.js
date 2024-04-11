@@ -4,10 +4,12 @@ const {getHabits,getHabit,getBadHabits,getGoodHabits,createHabit,updateHabit,del
 
 const router = express.Router()
 
-router.route('/').get(getHabits).post(createHabit)
-router.route('/goodHabits').get(getGoodHabits)
-router.route('/badHabits').get(getBadHabits)
-router.route('/:id').get(getHabit).put(updateHabit).delete(deleteHabit)
+const { protect } = require('../middleware/auth')
+
+router.route('/').get(protect,getHabits).post(protect, createHabit)
+router.route('/goodHabits').get(protect,getGoodHabits)
+router.route('/badHabits').get(protect,getBadHabits)
+router.route('/:id').get(protect ,getHabit).put(protect ,updateHabit).delete(protect,deleteHabit)
 
 module.exports = router
 

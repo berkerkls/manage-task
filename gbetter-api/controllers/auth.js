@@ -4,7 +4,7 @@ const asyncHandler = require('../middleware/async')
 
 //@desc Register user
 //@route GET /api/v1/auth/register 
-//@access publice
+//@access public
 
 exports.registerUser = asyncHandler(async (req,res,next) => {
     const {name, email, password} = req.body
@@ -20,11 +20,12 @@ exports.registerUser = asyncHandler(async (req,res,next) => {
     res.status(200).json({success:true, msg:'User registered',token: token})
 })
 
-
+//@desc Login user
+//@route GET /api/v1/auth/login 
+//@access public
 
 exports.loginUser = asyncHandler(async (req,res,next) => {
     const { email, password} = req.body
-    console.log('????',email,password)
     if(!email || !password){
      return next(new ErrorResponse('Please enter an email and password', 400))
     }
@@ -46,3 +47,5 @@ exports.loginUser = asyncHandler(async (req,res,next) => {
     res.status(200).json({success:true, msg:'Login is successfull ',token: token})
 
 })
+
+
