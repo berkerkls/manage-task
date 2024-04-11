@@ -49,3 +49,15 @@ exports.loginUser = asyncHandler(async (req,res,next) => {
 })
 
 
+//@desc Logged in user
+//@route GET /api/v1/auth/loggedInUser 
+//@access public
+
+exports.getLoggedInUser = asyncHandler(async (req, res, next) => {
+    const user = await User.findById(req.user.id)
+    res.status(200).json({
+        success: true,
+        data: user
+    })
+})
+
