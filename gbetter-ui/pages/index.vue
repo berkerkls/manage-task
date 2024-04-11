@@ -42,20 +42,34 @@
 
 <script setup>
 import { signupFormInputs } from "~/data/contants";
+import { AuthService } from "../services/auth-service";
+import { useAuthStore } from "../stores/authStore";
 
 definePageMeta({
   layout: "landing",
 });
 
 const signupCommand = ref({ fullName: "", email: "", password: "" });
+const authService = new AuthService();
+const authStore = new useAuthStore();
+const router = useRouter();
 
 const signUp = () => {
   signupFormInputs.map((item) => {
     if (Object.keys(signupCommand.value).includes(item.key)) {
-      console.log(item.value, "sss");
       signupCommand.value[item.key] = item.value;
     }
   });
-  console.log(signupCommand.value, "command");
+  authService
+    .Register(signupCommand)
+    .then((res) => {
+      if (res.success) {
+        authStore.setToken(res.token);
+        router.push({ name: "dasboard" });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 </script>

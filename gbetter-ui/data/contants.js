@@ -11,7 +11,6 @@ export const signupFormInputs = [
       type: "text",
       isRequired: true,
       isValid: false,
-      class: "grow",
     },
     {
       icon: faEnvelope,
@@ -22,7 +21,6 @@ export const signupFormInputs = [
       type: "text",
       isRequired: true,
       isValid: false,
-      class: "grow",
     },
     {
       icon: faKey,
@@ -33,7 +31,6 @@ export const signupFormInputs = [
       type: "password",
       isRequired: true,
       isValid: false,
-      class: "grow",
     },
   ];
 
@@ -48,7 +45,6 @@ export const signupFormInputs = [
       type: "text",
       isRequired: true,
       isValid: false,
-      class: "grow",
     },
     {
       icon: faKey,
@@ -59,6 +55,5 @@ export const signupFormInputs = [
       type: "password",
       isRequired: true,
       isValid: false,
-      class: "grow",
     },
   ];

@@ -1,6 +1,6 @@
 import { API_BASE } from "~/config/settings";
 export class HttpClient {
-  //   store = useAuthStore();
+  store = useAuthStore();
 
   Get(url: string) {
     return $fetch(`${API_BASE}${url}`, {
@@ -17,7 +17,7 @@ export class HttpClient {
       body: data,
       headers: new Headers({
         "Content-type": "application/json",
-        // Authorization: "Bearer " + this.store.getUserToken() ?? "",
+        Authorization: `Bearer ${this.store.getToken() ?? ""}`,
       }),
     });
   }
@@ -27,7 +27,7 @@ export class HttpClient {
       body: data,
       headers: new Headers({
         "Content-type": "application/json",
-        // Authorization: "Bearer " + this.store.getUserToken() ?? "",
+        Authorization: `Bearer ${this.store.getToken() ?? ""}`,
       }),
     });
   }
@@ -36,7 +36,7 @@ export class HttpClient {
       method: "DELETE",
       headers: new Headers({
         "Content-type": "application/json",
-        // Authorization: "Bearer " + this.store.getUserToken() ?? "",
+        Authorization: `Bearer ${this.store.getToken() ?? ""}`,
       }),
     });
   }

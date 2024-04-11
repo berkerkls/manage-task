@@ -45,13 +45,11 @@
 <script setup>
 import { loginFormInputs } from "~/data/contants";
 import LinkItem from "~/components/shared/LinkItem.vue";
-import { TasksService } from "../../services/tasks-service";
 definePageMeta({
   layout: "landing",
 });
 
 const loginCommand = ref({ email: "", password: "" });
-const userService = new TasksService();
 
 const login = () => {
   loginFormInputs.map((item) => {
@@ -61,13 +59,5 @@ const login = () => {
     }
   });
   console.log(loginCommand.value, "command");
-};
-
-onMounted(() => {
-  user();
-});
-
-const user = () => {
-  userService.GetTasks();
 };
 </script>
