@@ -2,4 +2,9 @@
   <div>dashboard</div>
 </template>
 
-<script setup></script>
+<script setup>
+definePageMeta({
+  layout: "default",
+  middleware: ["auth"],
+});
+</script>
