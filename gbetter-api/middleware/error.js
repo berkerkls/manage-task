@@ -9,7 +9,6 @@ const errorHandler = (err, req,res,next) => {
         error = new ErrorResponse(message,404)
     }
     if(err instanceof mongoose.Error.ValidationError){
-        console.log("hey");
         const message = Object.values(err.errors).map(item => item.properties.message)
         error = new ErrorResponse(message, 400)
     }

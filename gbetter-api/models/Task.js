@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const slugify = require('slugify')
 
 
-const HabitsSchema = new mongoose.Schema({
+const TaskSchema = new mongoose.Schema({
     title: {
         type: String,
         required: [true, 'Please add a title'],
@@ -14,23 +14,21 @@ const HabitsSchema = new mongoose.Schema({
         type: String,
         maxlength:[500, 'Description cannot be more than 500 characters']
     },
-    habitType: {
+    taskType: {
         type: Number,
-        required:[true, 'Please add a habit type'],
+        required:[true, 'Please add a task type'],
         enum:[
-            0, // good habit
-            1 , // bad habit
-            2 //undecided
+            0, // single task
+            1 , // road map
         ]
     },
-    timePeriod: {
-        type:Number,
-        required: [true, 'Please add a time period'],
-        enum:[
-            0,  //daily
-            1,  // weekly
-            2,  // monthly
-        ]
+    startDate: {
+        type: Date,
+        required:[true, 'Please add a start date'],
+    },
+    endDate: {
+        type: Date,
+        required:[true, 'Please add a end date'],
     },
     createdAt: {
         type: Date,
@@ -42,10 +40,10 @@ const HabitsSchema = new mongoose.Schema({
     }
 })
 
-HabitsSchema.pre('save', function(next){
+TaskSchema.pre('save', function(next){
     this.slug = slugify(this.title, {lower: true})
     next();
 })
 
 
-module.exports = mongoose.model('Habits', HabitsSchema)
+module.exports = mongoose.model('Habits', TaskSchema)

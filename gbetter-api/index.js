@@ -17,7 +17,7 @@ const app = express()
 app.use(express.json())
 
 //routes
-const habits = require('./routes/habits.js')
+const tasks = require('./routes/tasks.js')
 const auth = require('./routes/auth.js')
 
 
@@ -26,7 +26,7 @@ if(process.env.NODE_ENV === 'development'){
     app.use(morgan('dev'))
 }
 // mount routers
-app.use('/api/v1/habits',habits)
+app.use('/api/v1/tasks',tasks)
 app.use('/api/v1/auth',auth)
 
 app.use(errorHandler)
