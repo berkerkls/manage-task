@@ -1,6 +1,19 @@
 <template>
-  <div class="flex justify-center items-center bg-red-500">
-    <div class="text-red-600">sss</div>
-    <div class="text-blue">vvvv</div>
+  <div class="navbar flex justify-center items-center">
+    <div class="flex justify-between items-center p-10 w-2/4">
+      <SharedLinkItem
+        v-for="(item, index) in MenuItems"
+        :key="index"
+        :href="item.href"
+        :label="item.label"
+        :icon="item.icon"
+        :is-active="route.fullPath === item.href"
+      ></SharedLinkItem>
+    </div>
   </div>
 </template>
+
+<script setup>
+import { MenuItems } from "~/data/contants";
+let route = useRoute();
+</script>

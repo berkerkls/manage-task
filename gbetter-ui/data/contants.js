@@ -1,6 +1,5 @@
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
-import { faKey, faUser } from "@fortawesome/free-solid-svg-icons";
-import { errorMessages } from "vue/compiler-sfc";
+import { faHome,faRoad, faKey, faUser,faBookOpen} from "@fortawesome/free-solid-svg-icons";
 
 export const signupFormInputs = [
     {
@@ -49,8 +48,6 @@ export const signupFormInputs = [
       type: "text",
       isRequired: true,
       isValid: true,
-      checkValid:(value) => this.isValid = value, 
-      errorMessage:'',
     },
     {
       icon: faKey,
@@ -61,7 +58,23 @@ export const signupFormInputs = [
       type: "password",
       isRequired: true,
       isValid: true,
-      errorMessage: ''
+    },
+  ];
+  export const MenuItems = [
+    {
+      href: "/dashboard",
+      label: "Dashboard",
+      icon: faHome,
+    },
+    {
+      href: "/single-tasks",
+      label: "Single Tasks",
+      icon: faBookOpen,
+    },
+    {
+      href: "/roadmaps",
+      label: "Roadmaps",
+      icon: faRoad,
     },
   ];
 
