@@ -46,7 +46,7 @@
 </template>
 
 <script setup>
-import { loginFormInputs } from "~/data/contants";
+import { loginFormInputs } from "~/utils/contants";
 import LinkItem from "~/components/shared/LinkItem.vue";
 import { AuthService } from "~/services/auth-service";
 import { useAuthStore } from "../../stores/authStore";

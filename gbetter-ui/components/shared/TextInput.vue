@@ -1,5 +1,17 @@
 <template>
-  <div class="flex flex-col">
+  <div
+    v-if="props.type == 'textarea'"
+    :class="`${props.class} flex gap-2 flex-col`"
+  >
+    <span v-if="props.labelName" class="mb-1">{{ props.labelName }}</span>
+    <textarea
+      v-model="modelValue"
+      :placeholder="props.placeholder"
+      class="textarea textarea-bordered textarea-md resize-none"
+      @input="$emit('update:modelValue', $event.target.value)"
+    ></textarea>
+  </div>
+  <div v-else :class="`${props.class} flex flex-col`">
     <span v-if="props.labelName" class="mb-1">{{ props.labelName }}</span>
     <label
       :class="`input input-bordered flex items-center gap-2 ${props.class} ${
@@ -41,6 +53,7 @@ let props = defineProps([
   "type",
   "isRequired",
   "isValid",
+  "class",
   "regex",
 ]);
 let emits = defineEmits(["update:modelValue", "isInputValid"]);

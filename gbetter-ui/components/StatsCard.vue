@@ -1,6 +1,5 @@
-import { FontAwesome } from '../.nuxt/components';
 <template>
-  <div class="stats stats-vertical shadow">
+  <div class="stats lg:stats-vertical shadow">
     <div class="stat">
       <div class="stat-figure text-primary">
         <FontAwesome :icon="faListAlt" class="h-5 w-5" />

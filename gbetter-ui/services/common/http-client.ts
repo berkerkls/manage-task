@@ -7,7 +7,7 @@ export class HttpClient {
       method: "GET",
       headers: new Headers({
         "Content-type": "application/json",
-        Authorization: "",
+        Authorization: `Bearer ${this.store.getToken() ?? ""}`,
       }),
     });
   }

@@ -14,6 +14,6 @@
 </template>
 
 <script setup>
-import { MenuItems } from "~/data/contants";
+import { MenuItems } from "~/utils/contants";
 let route = useRoute();
 </script>

@@ -41,7 +41,7 @@
 </template>
 
 <script setup>
-import { signupFormInputs } from "~/data/contants";
+import { signupFormInputs } from "~/utils/contants";
 import { AuthService } from "../services/auth-service";
 import { useAuthStore } from "../stores/authStore";
 
