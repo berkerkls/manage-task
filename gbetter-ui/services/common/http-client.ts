@@ -15,7 +15,7 @@ export class HttpClient {
     console.log("data", data);
     return $fetch(`${API_BASE}${url}`, {
       method: "POST",
-      body: data,
+      body: JSON.stringify(data),
       headers: new Headers({
         "Content-type": "application/json",
         Authorization: `Bearer ${this.store.getToken() ?? ""}`,
