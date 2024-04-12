@@ -47,7 +47,6 @@ import { useAuthStore } from "../stores/authStore";
 
 definePageMeta({
   layout: "landing",
-  middleware: ["auth"],
 });
 
 const signupCommand = ref({ fullName: "", email: "", password: "" });

@@ -52,7 +52,6 @@ import { AuthService } from "~/services/auth-service";
 import { useAuthStore } from "../../stores/authStore";
 definePageMeta({
   layout: "landing",
-  middleware: ["auth"],
 });
 
 const loginCommand = ref({ email: "", password: "" });
