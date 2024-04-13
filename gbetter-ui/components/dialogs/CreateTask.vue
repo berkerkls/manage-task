@@ -1,18 +1,20 @@
 <template>
-  <dialog id="create_task" class="modal">
+  <dialog id="create_task">
     <div class="modal-box bg-[#ffeded]">
-      <form method="dialog">
-        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-          ✕
-        </button>
-      </form>
+      <button
+        @click="closeModal"
+        class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+      >
+        ✕
+      </button>
       <h3 class="font-medium text-primary text-xl text-center">Create Task</h3>
       <form @submit.prevent="createTask">
-        <div v-for="(item, index) in createTaskElements">
+        <div v-for="(item, index) in taskFormInputs">
           <SharedTextInput
             v-if="item.type !== 'select'"
             :key="index"
             v-model="item.value"
+            :modelValue="item.value"
             :class="item.class"
             :is-required="item.isRequired"
             :is-valid="item.isValid"
@@ -47,33 +49,50 @@ import { createTaskElements } from "~/utils/contants";
 import { TasksService } from "~/services/tasks-service";
 
 const tasksService = new TasksService();
-const taskType = ref(0);
-const taskCommand = ref(new CreateTaskCommand());
-const emits = defineEmits(["getTasks"]);
+const emits = defineEmits(["getTasks", "closeDialog"]);
+let taskType = ref(0);
+let taskCommand = ref(new CreateTaskCommand());
+let taskFormInputs = ref(structuredClone(createTaskElements));
+
+onMounted(() => {
+  const modal = document.getElementById("create_task");
+  modal.showModal();
+  modal.classList = "modal";
+});
+
+const closeModal = () => {
+  const modal = document.getElementById("create_task");
+  modal.close();
+  modal.classList = "";
+  emits("closeDialog", false);
+};
 
 const createTask = () => {
-  let taskTypeInput = createTaskElements.find(
+  let taskTypeInput = taskFormInputs.value.find(
     (item) => item.key === "taskType"
   );
   if (taskTypeInput) {
     taskTypeInput.value = taskType.value.toString();
   }
-  createTaskElements.map((item) => {
+  taskFormInputs.value.map((item) => {
     if (Object.keys(taskCommand.value).includes(item.key)) {
       taskCommand.value[item.key] = item.value;
     }
   });
-  if (createTaskElements.every((item) => item.isValid && item.value)) {
-    console.log(taskCommand.value);
+  if (taskFormInputs.value.some((item) => item.isRequired && !item.value)) {
+    console.log("not valid", taskCommand.value);
+  } else {
     tasksService.CreateTask(taskCommand.value).then((res) => {
       if (res.success) {
         console.log(res);
         emits("getTasks");
-        create_task.close();
+        closeModal();
+        taskFormInputs.value = structuredClone(createTaskElements);
+        taskCommand.value = new CreateTaskCommand();
+        console.log("elements", taskFormInputs.value);
+        console.log("command", taskCommand.value);
       }
     });
-  } else {
-    console.log("not valid");
   }
 };
 </script>

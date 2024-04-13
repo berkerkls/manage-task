@@ -11,8 +11,10 @@
         <FontAwesome :icon="faCheck" class="text-success ml-4"
       /></span>
     </div>
-    <div class="flex flex-col lg:flex-row justify-center h-full">
-      <StatsCard class="w-full lg:w-1/4 lg:h-3/4" />
+    <div
+      class="card flex flex-col lg:flex-row justify-center overflow-y-auto min-h-96 max-h-96"
+    >
+      <StatsCard class="w-full lg:w-1/4" />
       <div class="w-3/4 overflow-auto p-6">
         <div v-if="loading" class="flex justify-center items-center h-full">
           <span class="loading loading-spinner text-primary loading-lg"></span>
@@ -27,12 +29,14 @@
             <h3 class="font-medium">You have not added a task yet.</h3>
           </div>
           <button
-            onclick="create_task.showModal()"
+            onclick="() => {
+              create_task.showModal()
+              isOpen = true
+            }"
             class="btn btn-sm btn-primary text-white"
           >
             Let's Add!
           </button>
-          <DialogsCreateTask @getTasks="getAllTasks()" />
         </div>
         <table v-if="allTasks.length && !loading" class="table">
           <thead>
@@ -45,10 +49,17 @@
               <th>Title</th>
               <th>Start Date</th>
               <th>End Date</th>
-              <th></th>
+              <th>
+                <button
+                  @click="isOpen = true"
+                  class="btn btn-square btn-outline border-primary hover:bg-transparent hover:border-primary"
+                >
+                  <FontAwesome class="text-primary" :icon="faPlus" />
+                </button>
+              </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="overflow-y-auto min-h-96 max-h-96">
             <!-- rows -->
             <TaskTable
               v-for="(item, index) in allTasks"
@@ -62,6 +73,11 @@
             />
           </tbody>
         </table>
+        <DialogsCreateTask
+          v-if="isOpen"
+          @closeDialog="(value) => (isOpen = value)"
+          @getTasks="getAllTasks()"
+        />
       </div>
     </div>
   </div>
@@ -69,14 +85,19 @@
 
 <script setup>
 import { TasksService } from "../../services/tasks-service";
-import { faInfoCircle, faCheck } from "@fortawesome/free-solid-svg-icons";
+import {
+  faInfoCircle,
+  faCheck,
+  faPlus,
+} from "@fortawesome/free-solid-svg-icons";
 definePageMeta({
   layout: "default",
 });
 
 const allTasks = ref([]);
 const taskService = new TasksService();
-const loading = ref(true);
+let loading = ref(true);
+let isOpen = ref(false);
 
 const getAllTasks = () => {
   loading.value = true;

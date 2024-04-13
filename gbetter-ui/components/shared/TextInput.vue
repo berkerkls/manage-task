@@ -62,6 +62,9 @@ let passwordView = ref(false);
 let isInputValid = ref(true);
 let errorMessage = ref("");
 
+onMounted(() => {
+  console.log("mounted");
+});
 watch(modelValue, () => {
   if (props.labelName == "Email" && props.isRequired) {
     const mailRegex =
@@ -81,7 +84,14 @@ watch(modelValue, () => {
     isInputValid.value = false;
     errorMessage.value = "Password cannot be shorter than 6";
   } else {
-    isInputValid.value = modelValue.value && props.isRequired ? true : false;
+    if (!modelValue.value && !props.isRequired) {
+      isInputValid.value = true;
+    } else if (modelValue.value && props.isRequired) {
+      isInputValid.value = true;
+    } else {
+      isInputValid.value = false;
+    }
+
     errorMessage.value = `${props.placeholder.replace("*", "")} is required!`;
   }
   emits("isInputValid", isInputValid.value);

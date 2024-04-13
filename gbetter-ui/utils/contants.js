@@ -131,7 +131,7 @@ export const signupFormInputs = [
       placeholder: "Description",
       labelName: "Description",
       type: "textarea",
-      isRequired: true,
+      isRequired: false,
       isValid: true,
     },
   ]
