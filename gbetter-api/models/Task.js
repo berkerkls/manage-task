@@ -39,10 +39,10 @@ const TaskSchema = new mongoose.Schema({
         ref:'User',
         required: true
     },
-    isActive: {
+    isCompleted: {
         type: Boolean,
-        default: true
-    }
+        default: false
+    },
 })
 
 TaskSchema.pre('save', function(next){

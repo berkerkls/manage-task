@@ -84,13 +84,10 @@ const createTask = () => {
   } else {
     tasksService.CreateTask(taskCommand.value).then((res) => {
       if (res.success) {
-        console.log(res);
         emits("getTasks");
         closeModal();
         taskFormInputs.value = structuredClone(createTaskElements);
         taskCommand.value = new CreateTaskCommand();
-        console.log("elements", taskFormInputs.value);
-        console.log("command", taskCommand.value);
       }
     });
   }

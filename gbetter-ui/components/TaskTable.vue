@@ -1,8 +1,14 @@
 <template>
-  <tr>
+  <tr :class="className">
     <th>
       <label>
-        <input type="checkbox" class="checkbox" />
+        <input
+          :checked="props.isSelected == true ? 'checked' : null"
+          type="checkbox"
+          class="checkbox"
+          v-model="selected"
+          @change="$emit('isSelected', selected)"
+        />
       </label>
     </th>
     <td>
@@ -20,11 +26,35 @@
     </td>
     <td>{{ props.endDate }}</td>
     <th>
-      <button class="btn btn-ghost btn-xs">details</button>
+      <div class="flex justify-center items-center">
+        <button class="btn btn-ghost btn-xs">details</button>
+        <button class="btn btn-ghost text-error btn-xs hover:bg-[#fdeceb]">
+          delete
+        </button>
+      </div>
     </th>
   </tr>
 </template>
 
 <script setup>
-let props = defineProps(["title", "taskType", "startDate", "endDate"]);
+let props = defineProps([
+  "title",
+  "taskType",
+  "startDate",
+  "endDate",
+  "isCompleted",
+  "isSelected",
+]);
+let emits = defineEmits(["isSelected"]);
+let selected = ref(props.isSelected);
+
+let className = computed(() => {
+  if (!props.isCompleted && new Date(props.endDate) < new Date()) {
+    return "bg-[#fdeceb]";
+  }
+  if (props.isCompleted) {
+    return "bg-[#eef7ee]";
+  }
+  return;
+});
 </script>

@@ -29,10 +29,11 @@
             <h3 class="font-medium">You have not added a task yet.</h3>
           </div>
           <button
-            onclick="() => {
-              create_task.showModal()
-              isOpen = true
-            }"
+            @click="
+              () => {
+                isOpen = true;
+              }
+            "
             class="btn btn-sm btn-primary text-white"
           >
             Let's Add!
@@ -43,19 +44,36 @@
             <tr>
               <th>
                 <label>
-                  <input type="checkbox" class="checkbox" />
+                  <input
+                    @click="
+                      () =>
+                        allTasks.map(
+                          (item) => (item.isSelected = !item.isSelected)
+                        )
+                    "
+                    type="checkbox"
+                    class="checkbox"
+                  />
                 </label>
               </th>
               <th>Title</th>
               <th>Start Date</th>
               <th>End Date</th>
               <th>
-                <button
-                  @click="isOpen = true"
-                  class="btn btn-square btn-outline border-primary hover:bg-transparent hover:border-primary"
-                >
-                  <FontAwesome class="text-primary" :icon="faPlus" />
-                </button>
+                <div class="flex justify-around items-center">
+                  <button
+                    @click="() => (isOpen = !isOpen)"
+                    class="btn btn-square btn-outline border-primary hover:bg-transparent hover:border-primary"
+                  >
+                    <FontAwesome class="text-primary" :icon="faPlus" />
+                  </button>
+                  <button
+                    v-if="allTasks.some((item) => item.isSelected)"
+                    class="btn btn-square btn-outline border-[#53a653] hover:bg-transparent hover:border-primary"
+                  >
+                    <FontAwesome class="text-[#53a653]" :icon="faCheck" />
+                  </button>
+                </div>
               </th>
             </tr>
           </thead>
@@ -70,6 +88,9 @@
                 item.startDate.substring(0, item.startDate.indexOf('T'))
               "
               :endDate="item.endDate.substring(0, item.endDate.indexOf('T'))"
+              :isCompleted="item.isCompleted"
+              :isSelected="item.isSelected"
+              @isSelected="(value) => (allTasks[index].isSelected = value)"
             />
           </tbody>
         </table>
