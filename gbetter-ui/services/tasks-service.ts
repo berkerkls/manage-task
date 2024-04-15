@@ -16,13 +16,16 @@ export class TasksService extends BaseService {
   GetRoadmaps() {
     return this.client.Get(`${this.baseUrl}/roadmaps`);
   }
-  CreateTask(command: any) {
+  CreateTask(command: Object) {
     return this.client.Post(`${this.baseUrl}`, command);
   }
-  UpdateTask(id: string, command: any) {
-    return this.client.Put(`${this.baseUrl}/tasks/${id}`, command);
+  UpdateTask(id: string, command: Object) {
+    return this.client.Put(`${this.baseUrl}/${id}`, command);
   }
   DeleteTask(id: string) {
-    return this.client.Delete(`${this.baseUrl}/tasks/${id}`);
+    return this.client.Delete(`${this.baseUrl}/${id}`);
+  }
+  CompleteTasks(command: Object) {
+    return this.client.Put(`${this.baseUrl}/CompleteTasks`, command);
   }
 }

@@ -26,9 +26,12 @@
     </td>
     <td>{{ props.endDate }}</td>
     <th>
-      <div class="flex justify-center items-center">
+      <div class="flex justify-start items-center">
         <button class="btn btn-ghost btn-xs">details</button>
-        <button class="btn btn-ghost text-error btn-xs hover:bg-[#fdeceb]">
+        <button
+          @click="$emit('deleteTask', props.id)"
+          class="btn btn-ghost text-error btn-xs hover:bg-[#fdeceb]"
+        >
           delete
         </button>
       </div>
@@ -44,8 +47,9 @@ let props = defineProps([
   "endDate",
   "isCompleted",
   "isSelected",
+  "id",
 ]);
-let emits = defineEmits(["isSelected"]);
+let emits = defineEmits(["isSelected", "deleteTask"]);
 let selected = ref(props.isSelected);
 
 let className = computed(() => {

@@ -62,6 +62,27 @@ exports.updateTask = asyncHandler(async (req,res,next) => {
         res.status(200).json({success:true, msg:`Update task by id ${req.params.id}`, item: task})
 }) 
 
+
+//@desc Complete Task
+//@route PUT /api/v1/tasks
+//@access private
+exports.completeTasks = asyncHandler(async (req,res,next) => {
+        const allTasksToUpdate = req.body.taskIds
+        let task;
+        allTasksToUpdate.map(async (item) => {
+
+                task = await Task.findByIdAndUpdate(item,{isCompleted: true},{
+                        new: true,
+                        runValidator: true
+                })
+                if(!task){
+                        next(new ErrorResponse(`Task by id ${item.id} couldn't be found and updated`,404))
+                }
+        })
+        
+        res.status(200).json({success:true, msg:`Tasks are updated successfully`, item: task})
+}) 
+
 //@desc Delete Task
 //@route DELETE /api/v1/tasks/:id
 //@access private

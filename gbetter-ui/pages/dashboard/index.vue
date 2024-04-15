@@ -60,16 +60,17 @@
               <th>Start Date</th>
               <th>End Date</th>
               <th>
-                <div class="flex justify-around items-center">
+                <div class="flex justify-between items-center w-2/3">
                   <button
                     @click="() => (isOpen = !isOpen)"
-                    class="btn btn-square btn-outline border-primary hover:bg-transparent hover:border-primary"
+                    class="btn btn-square btn-outline border-primary hover:bg-transparent hover:border-primary justify-self-start"
                   >
                     <FontAwesome class="text-primary" :icon="faPlus" />
                   </button>
                   <button
+                    @click="completeTasks()"
                     v-if="allTasks.some((item) => item.isSelected)"
-                    class="btn btn-square btn-outline border-[#53a653] hover:bg-transparent hover:border-primary"
+                    class="btn btn-square btn-outline border-[#53a653] hover:bg-transparent hover:border-green-500"
                   >
                     <FontAwesome class="text-[#53a653]" :icon="faCheck" />
                   </button>
@@ -81,7 +82,8 @@
             <!-- rows -->
             <TaskTable
               v-for="(item, index) in allTasks"
-              :key="item.id"
+              :id="item._id"
+              :key="item._id"
               :title="item.title"
               :taskType="item.taskType"
               :startDate="
@@ -91,6 +93,7 @@
               :isCompleted="item.isCompleted"
               :isSelected="item.isSelected"
               @isSelected="(value) => (allTasks[index].isSelected = value)"
+              @deleteTask="(value) => deleteSingleTask(value)"
             />
           </tbody>
         </table>
@@ -126,6 +129,27 @@ const getAllTasks = () => {
     if (res.success) {
       allTasks.value = res.items;
       loading.value = false;
+    }
+  });
+};
+const deleteSingleTask = (id) => {
+  console.log(id, "id");
+  taskService.DeleteTask(id).then((res) => {
+    if (res.success) {
+      getAllTasks();
+    }
+  });
+};
+const completeTasks = () => {
+  let command = {
+    taskIds: [],
+  };
+  allTasks.value.map((item) =>
+    item.isSelected ? command.taskIds.push(item._id) : null
+  );
+  taskService.CompleteTasks(command).then((res) => {
+    if (res.success) {
+      getAllTasks();
     }
   });
 };
