@@ -3,12 +3,20 @@
     <div class="card-title flex">
       <progress
         class="progress progress-primary w-3/4 m-4"
-        :value="taskStore.progressValue"
+        :value="isNaN(taskStore.progressValue) ? 0 : taskStore.progressValue"
         max="100"
       ></progress>
       <span class="font-light w-1/4"
-        >{{ `%${taskStore.progressValue} of your tasks completed` }}
-        <FontAwesome :icon="faCheck" class="text-[#53a653] ml-4"
+        >{{
+          !isNaN(taskStore.progressValue) && !loading
+            ? `%${taskStore.progressValue} of your tasks completed`
+            : !loading
+            ? "No task added yet"
+            : ""
+        }}
+        <FontAwesome
+          :icon="!isNaN(taskStore.progressValue) && !loading ? faCheck : null"
+          class="text-[#53a653] ml-4"
       /></span>
     </div>
     <div

@@ -22,7 +22,13 @@
       </div>
       <div class="stat-value">{{ taskStore.tasksDoneThisWeek }}</div>
       <div class="stat-title">Tasks Done This Week</div>
-      <div class="stat-desc text-secondary">6 tasks remaining</div>
+      <div class="stat-desc text-secondary">
+        {{
+          taskStore.progressValue < 100
+            ? `${taskStore.remainingTasks} tasks remaining`
+            : "No task remaining"
+        }}
+      </div>
     </div>
   </div>
 </template>

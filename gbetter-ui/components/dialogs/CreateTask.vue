@@ -57,13 +57,12 @@ let taskFormInputs = ref(structuredClone(createTaskElements));
 onMounted(() => {
   const modal = document.getElementById("create_task");
   modal.showModal();
-  modal.classList = "modal";
+  if (modal.classList !== "modal") modal.classList = "modal";
 });
 
 const closeModal = () => {
   const modal = document.getElementById("create_task");
   modal.close();
-  modal.classList = "";
   emits("closeDialog", false);
 };
 

@@ -16,7 +16,7 @@
         <div>
           <div class="font-bold">{{ props.title }}</div>
           <div class="text-sm opacity-50">
-            {{ props.taskType === "0" ? "Task" : "Roadmap" }}
+            {{ props.taskType == 0 ? "Task" : "Roadmap" }}
           </div>
         </div>
       </div>

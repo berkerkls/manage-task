@@ -49,7 +49,7 @@ definePageMeta({
   layout: "landing",
 });
 
-const signupCommand = ref({ fullName: "", email: "", password: "" });
+const signupCommand = ref({ name: "", email: "", password: "" });
 const authService = new AuthService();
 const authStore = new useAuthStore();
 const router = useRouter();
@@ -61,11 +61,11 @@ const signUp = () => {
     }
   });
   authService
-    .Register(signupCommand)
+    .Register(signupCommand.value)
     .then((res) => {
       if (res.success) {
         authStore.setToken(res.token);
-        router.push({ name: "dasboard" });
+        router.push({ path: "/dasboard" });
       }
     })
     .catch((err) => {
