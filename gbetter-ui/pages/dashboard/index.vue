@@ -3,18 +3,18 @@
     <div class="card-title flex">
       <progress
         class="progress progress-primary w-3/4 m-4"
-        value="70"
+        :value="progressValue.toFixed(2)"
         max="100"
       ></progress>
       <span class="font-light w-1/4"
-        >%70 of your tasks completed
-        <FontAwesome :icon="faCheck" class="text-success ml-4"
+        >{{ `%${progressValue} of your tasks completed` }}
+        <FontAwesome :icon="faCheck" class="text-[#53a653] ml-4"
       /></span>
     </div>
     <div
       class="card flex flex-col lg:flex-row justify-center overflow-y-auto min-h-96 max-h-96"
     >
-      <StatsCard class="w-full lg:w-1/4" />
+      <StatsCard :allTasks="allTasks" class="w-full lg:w-1/4" />
       <div class="w-3/4 overflow-auto p-6">
         <div v-if="loading" class="flex justify-center items-center h-full">
           <span class="loading loading-spinner text-primary loading-lg"></span>
@@ -122,6 +122,7 @@ const allTasks = ref([]);
 const taskService = new TasksService();
 let loading = ref(true);
 let isOpen = ref(false);
+let progressValue = ref(0);
 
 const getAllTasks = () => {
   loading.value = true;
@@ -129,6 +130,10 @@ const getAllTasks = () => {
     if (res.success) {
       allTasks.value = res.items;
       loading.value = false;
+      progressValue.value =
+        (allTasks.value.filter((item) => item.isCompleted).length /
+          allTasks.value.length) *
+        100;
     }
   });
 };
