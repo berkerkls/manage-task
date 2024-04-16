@@ -22,9 +22,9 @@
       </div>
     </td>
     <td>
-      {{ props.startDate }}
+      {{ formatter.format(new Date(props.startDate)) }}
     </td>
-    <td>{{ props.endDate }}</td>
+    <td>{{ formatter.format(new Date(props.endDate)) }}</td>
     <th>
       <div class="flex justify-start items-center">
         <button class="btn btn-ghost btn-xs">details</button>
@@ -51,6 +51,11 @@ let props = defineProps([
 ]);
 let emits = defineEmits(["isSelected", "deleteTask"]);
 let selected = ref(props.isSelected);
+const formatter = new Intl.DateTimeFormat("tr-TR", {
+  day: "2-digit",
+  month: "2-digit",
+  year: "numeric",
+});
 
 let className = computed(() => {
   if (!props.isCompleted && new Date(props.endDate) < new Date()) {

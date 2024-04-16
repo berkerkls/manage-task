@@ -18,7 +18,7 @@ export const useTaskStore = defineStore({
       this.progressValue = (
         (allTasks.filter((item) => item.isCompleted).length / allTasks.length) *
         100
-      ).toFixed(1);
+      ).toFixed(0);
       this.tasksOpenedThisWeek = allTasks.filter(
         (item) =>
           new Date(item.createdAt) >=
