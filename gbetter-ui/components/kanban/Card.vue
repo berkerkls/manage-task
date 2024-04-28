@@ -1,8 +1,9 @@
 <template>
   <div
+    v-motion
     draggable="true"
-    @dragstart="($event) => $emit('handleDragStart', $event, props)"
-    class="cursor-grab rounded border border-primary bg-accent p-3 active:cursor-grabbing"
+    @dragstart="() => $emit('handleDragStart', props)"
+    class="cursor-grab rounded border border-primary bg-accent p-4 m-2 active:cursor-grabbing"
   >
     <p class="text-sm text-primary">{{ props.title }}</p>
   </div>

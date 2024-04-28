@@ -1,5 +1,5 @@
 <template>
-  <div class="flex h-full w-full gap-3 overflow-scroll p-12 bg-transparent">
+  <div class="flex h-full w-full gap-3 overflow-scroll p-16 bg-transparent">
     <KanbanColumn
       v-for="(item, index) in KanbanColumns"
       :key="index"

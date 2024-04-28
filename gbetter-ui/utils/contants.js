@@ -144,4 +144,9 @@ export const KanbanColumns = [
     column: "inprogress",
     headingColor: "text-primary",
   },
+  {
+    title: "Test",
+    column: "test",
+    headingColor: "text-primary",
+  },
 ];
