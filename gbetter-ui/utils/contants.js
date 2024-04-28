@@ -1,7 +1,6 @@
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import {
   faHome,
-  faRoad,
   faKey,
   faUser,
   faBookOpen,
@@ -73,14 +72,9 @@ export const MenuItems = [
     icon: faHome,
   },
   {
-    href: "/single-tasks",
-    label: "Single Tasks",
+    href: "/kanban",
+    label: "Kanban",
     icon: faBookOpen,
-  },
-  {
-    href: "/roadmaps",
-    label: "Roadmaps",
-    icon: faRoad,
   },
 ];
 
@@ -136,5 +130,18 @@ export const createTaskElements = [
     type: "textarea",
     isRequired: false,
     isValid: true,
+  },
+];
+
+export const KanbanColumns = [
+  {
+    title: "Waiting",
+    column: "waiting",
+    headingColor: "text-primary",
+  },
+  {
+    title: "In progress",
+    column: "inprogress",
+    headingColor: "text-primary",
   },
 ];

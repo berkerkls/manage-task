@@ -1,6 +1,6 @@
 <template>
   <ul
-    class="flex flex-col justify-center items-start bg-[#fef3f3] w-56 rounded-box max-h-96 overflow-y-auto"
+    class="flex flex-col justify-center items-start bg-[#fef3f3] w-56 rounded-box overflow-hidden"
   >
     <li v-for="(item, index) in taskStore.allTasks">
       <NuxtLink

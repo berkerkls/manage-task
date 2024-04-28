@@ -5,7 +5,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
     const store = useAuthStore();
     store.$state.token =
       JSON.parse(localStorage.getItem("token") as string) ?? "";
-    const authRoutes = ["/dashboard", "/single-tasks", "/roadmaps"];
+    const authRoutes = ["/dashboard", "/kanban"];
     if (!store.$state.token && authRoutes.includes(to.fullPath)) {
       return navigateTo("/");
     }

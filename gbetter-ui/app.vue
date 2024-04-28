@@ -12,12 +12,13 @@
 ::-webkit-scrollbar {
   width: 8px;
   height: 13px;
-  cursor: pointer;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: rgb(255, 165, 165);
+  background: transparent;
   border-radius: 10px;
+  border: 2px solid #ff4c4c;
+  cursor: pointer;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="navbar flex justify-center items-center">
-    <div class="flex justify-between items-center p-10 w-2/4">
+    <div class="flex justify-between items-center p-10 w-1/3">
       <SharedLinkItem
         v-for="(item, index) in MenuItems"
         :key="index"
