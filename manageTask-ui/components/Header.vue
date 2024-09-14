@@ -10,11 +10,8 @@
     <div class="flex-none">
       <div class="dropdown dropdown-end">
         <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-          <div class="w-10 rounded-full">
-            <img
-              alt="Tailwind CSS Navbar component"
-              src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-            />
+          <div class="w-6 rounded-full">
+            <FontAwesome :icon="faUser" class="h-5 w-5" />
           </div>
         </div>
         <ul
@@ -35,4 +32,6 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+</script>
